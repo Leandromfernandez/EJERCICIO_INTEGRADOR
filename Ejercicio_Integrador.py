@@ -24,8 +24,11 @@ lista_fabricante = []
 
 barbijo_max = None
 
+unidades_max = None
 
-for productos in range(2):
+acumulador_jabon = 0
+
+for productos in range(5):
         
     tipo_de_producto = input('Ingrese el tipo de producto [ BARBIJO - JABON - ALCOHOL]: ')
     tipo_de_producto = tipo_de_producto.upper()
@@ -57,25 +60,48 @@ for productos in range(2):
     lista_precios.append(precio)
     lista_unidades.append(unidades)
     lista_marca.append(marca)
-    lista_fabricante.append(fabricante)    
-        
-        
+    lista_fabricante.append(fabricante)       
 
-    productos += 1
-    
+#A. Del más caro de los barbijos, la cantidad de unidades y el fabricante.   
 for i in range(len(lista_productos)):
-    precio = lista_precios[i]
-    if barbijo_max == None or precio > barbijo_max:
-        barbijo_max = precio
+    if lista_productos[i] == "BARBIJO":
+        precio = lista_precios[i]
+        if barbijo_max == None or precio > barbijo_max:
+            barbijo_max = lista_precios[i]
+            unidades_barbijos_max = lista_unidades[i]
+            fabricante_max = lista_fabricante[i]
+    #C. Cuántas unidades de jabones hay en total.
+    elif lista_productos[i] == "JABON":
+        unidades_jabon = lista_unidades[i]
+        acumulador_jabon = acumulador_jabon + unidades_jabon 
+
+
+#B. Del ítem con más unidades, el fabricante.
+for i in range(len(lista_unidades)):
+    if unidades_max == None or unidades > unidades_max:
         unidades_max = lista_unidades[i]
-        fabricante_max = lista_fabricante[i]
-  
-
-print(f'el barbijo mas caro sale: {barbijo_max}, del fabricante: {fabricante_max}, y hay {unidades_max} unidades. ')
+        producto_con_unidades_max = lista_productos[i]
+        fabricante_con_unidades_max = lista_fabricante[i]    
 
 
+#A-
+if barbijo_max != None:
+    print(f'el barbijo mas caro sale: {barbijo_max}, hay {unidades_barbijos_max} unidades del fabricante: {fabricante_max} ')
+else:
+    print('NO SE CARGARON BARBIJOS')
+
+#B-
+print(f'El item con mas unidades es: {producto_con_unidades_max}, tiene {unidades_max} y el fabricante es: {fabricante_con_unidades_max}')
+
+#C-
+if acumulador_jabon > 0:
+    print(f'hay: {acumulador_jabon} unidades de jabon')
+else:
+    print("NO HAY JABONES")
 
 
 
 
-#print (f'PRODUCTOS: {lista_productos}\nPRECIOS: {lista_precios}\nUNIDADES: {lista_unidades}\nMARCA: {lista_marca}\nFABRICANTE: {lista_fabricante} ')    
+
+
+
